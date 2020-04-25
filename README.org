@@ -1,0 +1,41 @@
+* =lsp-pascal=
+
+LSP client to support Pascal through [[https://github.com/emacs-lsp/lsp-mode][=lsp-mode=]] using the [[https://github.com/arjanadriaanse/pascal-language-server][Pascal
+Language Server]].
+
+** Install
+
+Build the language server from the repository linked above.
+
+Add the following to your Emacs configuration.
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'load-path "/path/to/lsp-pascal")
+  (require 'lsp-pascal)
+
+  (add-hook 'pascal-mode-hook #'lsp)
+  (add-hook 'opascal-mode-hook #'lsp)
+
+  ;; set this in case the language server is not available in PATH
+  (setq lsp-pascal-command "/path/to/pasls")
+
+  ;; set this to your FPC source location
+  (setq lsp-pascal-fpcdir "/usr/lib/fpc/3.2.0/source")
+#+END_SRC
+
+All available options can be found through =M-x customize-group= in
+the group =lsp-pascal=.
+
+** Tips
+
+Some additional useful configuration for editing Object Pascal.
+
+#+BEGIN_SRC emacs-lisp
+  ;; load opascal-mode automatically for these file extensions
+  (add-to-list 'auto-mode-alist
+               '("\\.\\(pas\\|pp\\|lpr\\|dpr\\)\\'" . opascal-mode))
+  
+  ;; set indentation to a more conventional value
+  (setq opascal-indent-level 2)
+  (setq opascal-case-label-indent 2)
+#+END_SRC
